@@ -1,0 +1,90 @@
+<div class="container">
+  <form class="row g-3 bg-light py-5 px-3 rounded-3 mt-1 shadow-sm">
+    <h3 class="mb-3 text-dark">Pesquisar</h3>
+    <div class="col-md-6">
+      <label class="form-label text-dark" for="checkin-input"
+      >Check-in:</label
+      >
+      <input
+        aria-label="Check-in date"
+        class="form-control"
+        id="checkin-input"
+        name="checkin"
+        required
+        type="date"
+      />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label text-dark" for="checkout-input"
+      >Check-out:</label
+      >
+      <input
+        aria-label="Check-out date"
+        class="form-control"
+        id="checkout-input"
+        name="checkout"
+        required
+        type="date"
+      />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label text-dark" for="region-input"
+      >Localidade:</label
+      >
+      <input
+        class="form-control"
+        id="region-input"
+        name="region"
+        placeholder="Para onde vamos?"
+        type="search"
+      />
+    </div>
+    <div class="col-md-6">
+      <label
+        class="form-label text-dark"
+        for="amount-of-people-select"
+      >Quantas pessoas?</label
+      >
+      <select
+        class="form-select"
+        id="amount-of-people-select"
+        name="amount-of-people-select"
+        required
+      >
+        <option value="0">1</option>
+        <option value="1">2</option>
+        <option value="2">3</option>
+        <option value="3">4</option>
+      </select>
+    </div>
+    <div class="col-12">
+      <div class="d-flex justify-content-center">
+        <button
+          class="btn btn-primary w-100"
+          id="search-button"
+          type="submit"
+        >Pesquisar
+        </button
+        >
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container mt-4">
+  <label for="map">Selecione uma região no mapa:</label>
+  <div class="embed-responsive embed-responsive-4by3">
+    <iframe
+      allowfullscreen
+      class="shadow-sm"
+      height="300"
+      id="map"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC7K0CfjjrLQ6kocgQ7pGT0S0DvLIdAM2I&zoom=15&q=New York,NY,US"
+      title="Map showing a region"
+      width="100%"
+    >
+    </iframe>
+  </div>
+</div>

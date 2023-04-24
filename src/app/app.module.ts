@@ -3,27 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
-import { LoginComponent } from './login/login.component';
-import { InicioComponent } from './inicio/inicio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './components/header/header.component';
+import { MainComponent } from './components/main/main.component';
+import { AsideComponent } from './components/aside/aside.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NgOptimizedImage } from '@angular/common';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CadastroComponent,
-    LoginComponent,
-    InicioComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule
-  ],
+  declarations: [AppComponent, HeaderComponent, MainComponent, AsideComponent, FooterComponent],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule, NgOptimizedImage],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
