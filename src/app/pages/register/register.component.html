@@ -1,0 +1,58 @@
+<app-header></app-header>
+<section class='container mb-5'>
+  <main class='container'>
+    <div class='row justify-content-center'>
+      <div class='col-md-8 col-lg-6'>
+        <div class='card p-4 shadow'>
+          <h2 class='mb-4 text-center'>Crie sua conta</h2>
+          <form>
+            <div class='row'>
+              <div class='col-sm-6 mb-3'>
+                <label class='form-label' for='first-name-input'>Nome</label>
+                <input class='form-control' id='first-name-input' name='first-name' required type='text'>
+              </div>
+              <div class='col-sm-6 mb-3'>
+                <label class='form-label' for='last-name-input'>Sobrenome</label>
+                <input class='form-control' id='last-name-input' name='last-name' required type='text'>
+              </div>
+            </div>
+            <div class='form-group mb-3'>
+              <label class='form-label' for='email-input'>Endereço de e-mail</label>
+              <input aria-describedby='email-description' class='form-control' id='email-input' name='email'
+                     pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' required type='email'>
+              <small class='form-text text-muted' id='email-description'>Usaremos seu e-mail para comunicações
+                importantes sobre sua conta e reservas.</small>
+            </div>
+            <div class='form-group mb-3'>
+              <label class='form-label' for='password-input'>Senha</label>
+              <input aria-describedby='password-description' class='form-control' id='password-input' name='password'
+                     pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$' required type='password'>
+              <small class='form-text text-muted' id='password-description'>A senha deve ter no mínimo 8 caracteres,
+                incluindo ao menos uma letra minúscula, uma letra maiúscula e um número.</small>
+            </div>
+            <div class='form-group mb-3'>
+              <label class='form-label' for='confirm-password-input'>Confirmar senha</label>
+              <input class='form-control' id='confirm-password-input' name='confirm-password' required type='password'>
+            </div>
+            <div class='form-check mb-3'>
+              <input class='form-check-input' id='agree-terms-input' name='agree-terms' required type='checkbox'>
+              <label class='form-check-label' for='agree-terms-input'>Eu li e concordo com os <a
+                class='text-decoration-none'
+                href='#'>termos
+                de serviço</a> e a <a class='text-decoration-none' href='#'>política de privacidade</a> do
+                Gulliver Traveller.</label>
+            </div>
+            <button class='btn btn-primary w-100' type='submit'>Criar conta</button>
+          </form>
+          <div class='mt-4 text-center'>
+            <p class='mb-0'>Já tem uma conta? <a class='text-decoration-none' href='#'>Entre</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+<app-footer></app-footer>
+<router-outlet></router-outlet>
+
+```

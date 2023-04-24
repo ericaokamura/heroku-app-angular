@@ -1,0 +1,41 @@
+<app-header></app-header>
+<section class='container mb-5'>
+  <main class='container'>
+    <div class='row justify-content-center'>
+      <div class='col-md-8 col-lg-6'>
+        <div class='card p-4 shadow'>
+          <h2 class='mb-4 text-center'>Entre na sua conta</h2>
+          <form>
+            <div class='form-group mb-3'>
+              <label class='form-label' for='email-input'>Endereço de e-mail</label>
+              <input aria-describedby='email-description' class='form-control' id='email-input' name='email'
+                     pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' required type='email'>
+              <small class='form-text text-muted' id='email-description'>Digite o endereço de e-mail associado à sua
+                conta.</small>
+            </div>
+            <div class='form-group mb-3'>
+              <label class='form-label' for='password-input'>Senha</label>
+              <input aria-describedby='password-description' class='form-control' id='password-input' name='password'
+                     pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$' required type='password'>
+              <small class='form-text text-muted' id='password-description'>Digite sua senha.</small>
+            </div>
+            <div class='form-check mb-3'>
+              <input class='form-check-input' id='remember-me-input' name='remember-me' type='checkbox'>
+              <label class='form-check-label' for='remember-me-input'>Lembrar-me</label>
+            </div>
+            <button class='btn btn-primary w-100' type='submit'>Entrar</button>
+          </form>
+          <div class='mt-4 text-center'>
+            <p class='mb-0'>Não tem uma conta? <a class='text-decoration-none' href='#'>Cadastre-se</a>
+            </p>
+            <p><a class='text-decoration-none' href='#'>Esqueceu sua senha?</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>
+<app-footer></app-footer>
+<router-outlet></router-outlet>
+
+```
