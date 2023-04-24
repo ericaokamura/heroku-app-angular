@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
+import { Hotel } from '../../interfaces/hotel.interface';
 
-interface Hotel {
-  id: number;
-  name: string;
-  address: string;
-  image: string;
-}
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
