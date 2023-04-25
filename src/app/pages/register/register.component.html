@@ -5,36 +5,35 @@
       <div class='col-md-8 col-lg-6'>
         <div class='card p-5 shadow'>
           <h2 class='mb-4 text-center'>Crie sua conta</h2>
-          <form>
+          <form [formGroup]="registrationForm">
             <div class='form-group mb-3'>
-              <label class='form-label' for='full-name-input'>Nome Completo</label>
-              <input class='form-control' id='full-name-input' name='full-name' required type='text'>
+              <label class='form-label' for='fullName'>Nome Completo</label>
+              <input class='form-control' formControlName='fullName' id='fullName' required type='text'>
             </div>
             <div class='form-group mb-3'>
-              <label class='form-label' for='email-input'>Endereço de e-mail</label>
-              <input aria-describedby='email-description' class='form-control' id='email-input' name='email'
-                     pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' required type='email'>
+              <label class='form-label' for='email'>Endereço de e-mail</label>
+              <input aria-describedby='email-description' class='form-control' formControlName='email' id='email'
+                     type='email'>
               <small class='form-text text-muted' id='email-description'>Comunicações importantes sobre sua conta e
                 reservas serão enviadas para o seu e-mail.</small>
             </div>
             <div class='form-group mb-3'>
-              <label class='form-label' for='password-input'>Senha</label>
-              <input aria-describedby='password-description' class='form-control' id='password-input' name='password'
-                     pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$' required type='password'>
+              <label class='form-label' for='password'>Senha</label>
+              <input aria-describedby='password-description' class='form-control' formControlName='password'
+                     id='password' type='password'>
               <small class='form-text text-muted' id='password-description'>A senha precisa ter pelo menos 8 caracteres
                 e incluir pelo menos uma letra minúscula, uma letra maiúscula e um número.</small>
             </div>
             <div class='form-group mb-3'>
-              <label class='form-label' for='confirm-password-input'>Confirmar senha</label>
-              <input class='form-control' id='confirm-password-input' name='confirm-password' required type='password'>
+              <label class='form-label' for='confirmPassword'>Confirmar senha</label>
+              <input class='form-control' formControlName='confirmPassword' id='confirmPassword' type='password'>
             </div>
             <div class='form-check mb-3'>
-              <input class='form-check-input' id='agree-terms-input' name='agree-terms' required type='checkbox'>
-              <label class='form-check-label' for='agree-terms-input'>Eu li e concordo com os <a
+              <input class='form-check-input' formControlName='agreeTerms' id='agreeTerms' type='checkbox'>
+              <label class='form-check-label' for='agreeTerms'>Eu li e concordo com os <a
                 class='text-decoration-none'
-                href='#'>termos
-                de serviço</a> e a <a class='text-decoration-none' href='#'>política de privacidade</a> do
-                Gulliver Traveller.</label>
+                href='#'>termos de serviço</a> e a <a class='text-decoration-none' href='#'>política de privacidade</a>
+                do Gulliver Traveller.</label>
             </div>
             <button class='btn btn-primary w-100' type='submit'>Criar conta</button>
           </form>
