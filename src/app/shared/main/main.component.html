@@ -1,4 +1,4 @@
-<div *ngFor="let hotel of hotels">
+<div *ngFor="let hotel of hotelList">
   <article class="card mb-3 shadow-sm bg-white rounded">
     <div class="row g-0">
       <div class="col-md-4">
@@ -16,8 +16,8 @@
                     title="Adicionar aos favoritos">
               <span class="material-symbols-outlined">favorite</span>
             </button>
-            <button [attr.aria-label]="'Ver mais detalhes sobre ' + hotel.name" class="btn btn-primary text-light"
-                    role="link">
+            <button (click)="seeDetails(hotel.id)" [attr.aria-label]="'Ver mais detalhes sobre ' + hotel.name"
+                    class="btn btn-primary text-light" role="link">
               Detalhes
             </button>
           </div>
