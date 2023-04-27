@@ -26,10 +26,10 @@ export class RegisterComponent {
       password: this.registrationForm.value.password,
     };
     alert('User registered successfully');
-    // this.userService.postUser(user).subscribe(() => {
-    //   alert('User registered successfully');
-    //   this.registrationForm.reset();
-    // });
+    this.userService.postUser(user).subscribe(() => {
+      alert('User registered successfully');
+      this.registrationForm.reset();
+    });
   }
 
   private createForm(): void {
