@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 import { Router } from '@angular/router';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  loginForm: FormGroup = new FormGroup({});
+  loginForm!: FormGroup;
+  user!: User;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
     this.createForm();
@@ -18,15 +21,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const email: string = this.loginForm.controls['email'].value;
-      this.userService.getUserByEmail(email).subscribe((user: User) => {
-        if (user && user.password === this.loginForm.controls['password'].value) {
-          alert(`User ${user.fullName} logged in successfully`);
-          this.router.navigate(['/']).then(r => console.log(r));
-        } else {
-          alert('Invalid email or password');
-        }
-      });
+      this.validateUser();
     }
   }
 
@@ -41,5 +36,31 @@ export class LoginComponent {
         ],
       ],
     });
+  }
+
+  private validateUser(): void {
+    const email = this.loginForm.get('email')!.value;
+
+    this.userService
+      .getUserByEmail(email)
+      .pipe(
+        tap((user: User) => {
+          if (user && user.password === this.loginForm.get('password')!.value) {
+            this.user = user;
+          } else {
+            throw new Error('Invalid email or password');
+          }
+        }),
+        catchError((error: any) => {
+          console.error(error);
+          return throwError(error);
+        })
+      )
+      .subscribe(() => {
+        alert(`User ${this.user.fullName} logged in successfully`);
+        this.router.navigate(['/']).then(() => {
+          this.loginForm.reset();
+        });
+      });
   }
 }
