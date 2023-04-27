@@ -89,6 +89,7 @@
             </div>
             <div class='form-check mb-3'>
               <input
+                [ngClass]="{'is-invalid': registrationForm.get('agreeTerms')?.touched && registrationForm.get('agreeTerms')?.invalid}"
                 class='form-check-input'
                 formControlName='agreeTerms'
                 id='agreeTerms'
@@ -101,7 +102,7 @@
                 *ngIf="registrationForm.get('agreeTerms')?.touched && registrationForm.get('agreeTerms')?.invalid"
                 [ngClass]="{'d-block': registrationForm.get('agreeTerms')?.touched && registrationForm.get('agreeTerms')?.invalid}"
                 class="invalid-feedback">
-                Você precisa concordar com os termos de serviço e a política de privacidade para continuar.
+                É necessário aceitar os termos e condições para realizar o cadastro.
               </div>
             </div>
             <button class='btn btn-primary w-100' type='submit'>Criar conta</button>

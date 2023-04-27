@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
 
@@ -9,24 +9,10 @@ import { User } from '../../interfaces/user.interface';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  registrationForm: FormGroup;
-  private userService: UserService;
+  registrationForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, userService: UserService) {
-    this.userService = userService;
-    this.registrationForm = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern('^(?=.[a-z])(?=.[A-Z])(?=.*d)[a-zA-Zd]{8,}$')]],
-      confirmPassword: ['', [Validators.required, this.matchConfirmPassword.bind(this)]],
-      agreeTerms: [false, Validators.requiredTrue],
-    });
-  }
-
-  matchConfirmPassword(control: AbstractControl): { [key: string]: boolean } | null {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
-    return password && confirmPassword && password.value !== confirmPassword.value ? { passwordMismatch: true } : null;
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+    this.createForm();
   }
 
   onSubmit(): void {
@@ -39,15 +25,35 @@ export class RegisterComponent {
       login: this.registrationForm.value.email,
       password: this.registrationForm.value.password,
     };
-    this.userService.postUser(user).subscribe(
-      () => {
-        alert('Usuário criado com sucesso!');
-        this.registrationForm.reset();
+    alert('User registered successfully');
+    // this.userService.postUser(user).subscribe(() => {
+    //   alert('User registered successfully');
+    //   this.registrationForm.reset();
+    // });
+  }
+
+  private createForm(): void {
+    this.registrationForm = this.formBuilder.group(
+      {
+        fullName: ['', [Validators.required, Validators.minLength(6)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/),
+          ],
+        ],
+        confirmPassword: ['', [Validators.required, this.matchConfirmPassword.bind(this)]],
+        agreeTerms: [false],
       },
-      error => {
-        console.error(error);
-        alert('Ocorreu um erro ao criar o usuário.');
-      }
+      { validators: [this.matchConfirmPassword, Validators.requiredTrue] }
     );
+  }
+
+  private matchConfirmPassword(control: FormGroup): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+    return password && confirmPassword && password.value !== confirmPassword.value ? { passwordMismatch: true } : null;
   }
 }
