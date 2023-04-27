@@ -21,11 +21,11 @@ export class RegisterComponent {
     }
     const user: User = {
       fullName: this.registrationForm.value.fullName,
-      email: this.registrationForm.value.email,
       login: this.registrationForm.value.email,
       password: this.registrationForm.value.password,
+      email: this.registrationForm.value.email,
     };
-    alert('User registered successfully');
+
     this.userService.postUser(user).subscribe(() => {
       alert('User registered successfully');
       this.registrationForm.reset();
@@ -44,10 +44,10 @@ export class RegisterComponent {
             Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/),
           ],
         ],
-        confirmPassword: ['', [Validators.required, this.matchConfirmPassword.bind(this)]],
+        confirmPassword: ['', [Validators.required]],
         agreeTerms: [false],
       },
-      { validators: [this.matchConfirmPassword, Validators.requiredTrue] }
+      { validators: [this.matchConfirmPassword] }
     );
   }
 
