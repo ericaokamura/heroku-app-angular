@@ -5,35 +5,104 @@
       <div class='col-md-8 col-lg-6'>
         <div class='card p-5 shadow'>
           <h2 class='mb-4 text-center'>Crie sua conta</h2>
-          <form [formGroup]="registrationForm">
+          <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm" class="has-validation">
             <div class='form-group mb-3'>
               <label class='form-label' for='fullName'>Nome Completo</label>
-              <input class='form-control' formControlName='fullName' id='fullName' required type='text'>
+              <input
+                [ngClass]="{'is-invalid': registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.invalid}"
+                class='form-control' formControlName='fullName' id='fullName' minlength="5"
+                required
+                type='text'>
+              <div
+                *ngIf="registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.errors?.['required']"
+                [ngClass]="{'d-block': registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.errors?.['required']}"
+                class="invalid-feedback">
+                Por favor, insira seu nome completo.
+              </div>
+              <div
+                *ngIf="registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.errors?.['minlength']"
+                [ngClass]="{'d-block': registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.errors?.['minlength']}"
+                class="invalid-feedback">
+                O nome completo deve ter no mínimo 6 caracteres.
+              </div>
             </div>
             <div class='form-group mb-3'>
               <label class='form-label' for='email'>Endereço de e-mail</label>
-              <input aria-describedby='email-description' class='form-control' formControlName='email' id='email'
-                     type='email'>
-              <small class='form-text text-muted' id='email-description'>Comunicações importantes sobre sua conta e
-                reservas serão enviadas para o seu e-mail.</small>
+              <input
+                [ngClass]="{'is-invalid': registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid}"
+                aria-describedby='email-description'
+                class='form-control'
+                formControlName='email'
+                id='email'
+                type='email'>
+              <small class='form-text text-muted' id='email-description'>
+                Comunicações importantes sobre sua conta e reservas serão enviadas para o seu e-mail.
+              </small>
+              <div
+                *ngIf="registrationForm.get('email')?.touched && (registrationForm.get('email')?.errors?.['required'] || registrationForm.get('email')?.errors?.['email'])"
+                [ngClass]="{'d-block': registrationForm.get('email')?.touched && (registrationForm.get('email')?.errors?.['required'] || registrationForm.get('email')?.errors?.['email'])}"
+                class="invalid-feedback">
+                Por favor, insira um endereço de e-mail válido.
+              </div>
             </div>
             <div class='form-group mb-3'>
               <label class='form-label' for='password'>Senha</label>
-              <input aria-describedby='password-description' class='form-control' formControlName='password'
-                     id='password' type='password'>
-              <small class='form-text text-muted' id='password-description'>A senha precisa ter pelo menos 8 caracteres
-                e incluir pelo menos uma letra minúscula, uma letra maiúscula e um número.</small>
+              <input
+                [ngClass]="{'is-invalid': registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid}"
+                aria-describedby='password-description'
+                class='form-control'
+                formControlName='password'
+                id='password'
+                type='password'>
+              <small class='form-text text-muted' id='password-description'>
+                A senha precisa ter pelo menos 8 caracteres e incluir pelo menos uma letra minúscula, uma letra
+                maiúscula e um número.
+              </small>
+              <div
+                *ngIf="registrationForm.get('password')?.touched && (registrationForm.get('password')?.errors?.['required'] || registrationForm.get('password')?.errors?.['pattern'])"
+                [ngClass]="{'d-block': registrationForm.get('password')?.touched && (registrationForm.get('password')?.errors?.['required'] || registrationForm.get('password')?.errors?.['pattern'])}"
+                class="invalid-feedback">
+                Por favor, insira uma senha válida.
+              </div>
             </div>
+
             <div class='form-group mb-3'>
               <label class='form-label' for='confirmPassword'>Confirmar senha</label>
-              <input class='form-control' formControlName='confirmPassword' id='confirmPassword' type='password'>
+              <input
+                [ngClass]="{'is-invalid': registrationForm.get('confirmPassword')?.touched && registrationForm.get('confirmPassword')?.invalid}"
+                class='form-control'
+                formControlName='confirmPassword'
+                id='confirmPassword'
+                type='password'>
+              <div
+                *ngIf="registrationForm.get('confirmPassword')?.touched && registrationForm.get('confirmPassword')?.errors?.['required']"
+                [ngClass]="{'d-block': registrationForm.get('confirmPassword')?.touched && registrationForm.get('confirmPassword')?.errors?.['required']}"
+                class="invalid-feedback">
+                Por favor, confirme a senha.
+              </div>
+              <div
+                *ngIf="registrationForm.get('confirmPassword')?.touched && registrationForm.hasError('passwordMismatch')"
+                [ngClass]="{'d-block': registrationForm.get('confirmPassword')?.touched && registrationForm.hasError('passwordMismatch')}"
+                class="invalid-feedback">
+                As senhas não correspondem.
+              </div>
             </div>
             <div class='form-check mb-3'>
-              <input class='form-check-input' formControlName='agreeTerms' id='agreeTerms' type='checkbox'>
-              <label class='form-check-label' for='agreeTerms'>Eu li e concordo com os <a
-                class='text-decoration-none'
-                href='#'>termos de serviço</a> e a <a class='text-decoration-none' href='#'>política de privacidade</a>
-                do Gulliver Traveller.</label>
+              <input
+                class='form-check-input'
+                formControlName='agreeTerms'
+                id='agreeTerms'
+                type='checkbox'>
+              <label class='form-check-label' for='agreeTerms'>
+                Eu li e concordo com os <a class='text-decoration-none' href='#'>termos de serviço</a> e a <a
+                class='text-decoration-none' href='#'>política de privacidade</a> do Gulliver Traveller.
+              </label>
+              <div
+                *ngIf="registrationForm.get('agreeTerms')?.touched && registrationForm.get('agreeTerms')?.invalid"
+                [ngClass]="{'d-block': registrationForm.get('agreeTerms')?.touched && registrationForm.get('agreeTerms')?.invalid}"
+                class="invalid-feedback">
+                Você precisa concordar com os termos de serviço e a política de privacidade para continuar.
+              </div>
             </div>
             <button class='btn btn-primary w-100' type='submit'>Criar conta</button>
           </form>

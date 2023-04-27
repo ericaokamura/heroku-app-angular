@@ -11,7 +11,7 @@ export class RegisterComponent {
 
   constructor(private formBuilder: FormBuilder) {
     this.registrationForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
+      fullName: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern('^(?=.[a-z])(?=.[A-Z])(?=.*d)[a-zA-Zd]{8,}$')]],
       confirmPassword: ['', [Validators.required, this.matchConfirmPassword.bind(this)]],
@@ -19,8 +19,11 @@ export class RegisterComponent {
     });
   }
 
-  matchConfirmPassword(control: AbstractControl) {
-    const password = control.root.get('password');
-    return password && control.value !== password.value ? { matchConfirmPassword: true } : null;
+  matchConfirmPassword(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+    return password && confirmPassword && password.value !== confirmPassword.value ? { passwordMismatch: true } : null;
   }
+
+  onSubmit(): void {}
 }
