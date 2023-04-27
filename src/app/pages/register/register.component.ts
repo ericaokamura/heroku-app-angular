@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,25 +12,23 @@ import { User } from '../../interfaces/user.interface';
 export class RegisterComponent {
   registrationForm: FormGroup = new FormGroup({});
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
     this.createForm();
   }
 
   onSubmit(): void {
-    if (this.registrationForm.invalid) {
-      return;
+    if (this.registrationForm.valid) {
+      const user: User = {
+        fullName: this.registrationForm.value.fullName,
+        login: this.registrationForm.value.email,
+        password: this.registrationForm.value.password,
+        email: this.registrationForm.value.email,
+      };
+      this.userService.postUser(user).subscribe((user: User) => {
+        alert(`User ${user.fullName} registered successfully`);
+        this.router.navigate(['/login']).then(r => console.log(r));
+      });
     }
-    const user: User = {
-      fullName: this.registrationForm.value.fullName,
-      login: this.registrationForm.value.email,
-      password: this.registrationForm.value.password,
-      email: this.registrationForm.value.email,
-    };
-
-    this.userService.postUser(user).subscribe(() => {
-      alert('User registered successfully');
-      this.registrationForm.reset();
-    });
   }
 
   private createForm(): void {
