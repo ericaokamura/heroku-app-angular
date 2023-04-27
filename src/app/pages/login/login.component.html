@@ -5,19 +5,42 @@
       <div class='col-md-8 col-lg-6'>
         <div class='card p-5 shadow'>
           <h2 class='mb-4 text-center'>Entre na sua conta</h2>
-          <form>
+          <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
             <div class='form-group mb-3'>
-              <label class='form-label' for='email-input'>Endereço de e-mail</label>
-              <input aria-describedby='email-description' class='form-control' id='email-input' name='email'
-                     pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' required type='email'>
-              <small class='form-text text-muted' id='email-description'>Digite o endereço de e-mail associado à sua
-                conta.</small>
+              <label class='form-label' for='email'>Endereço de e-mail</label>
+              <input
+                [ngClass]="{'is-invalid': loginForm.get('email')?.touched && loginForm.get('email')?.invalid}"
+                aria-describedby='email-description'
+                class='form-control'
+                formControlName='email'
+                id='email'
+                type='email'>
+              <small class='form-text text-muted' id='email-description'>Digite o e-mail associado a sua conta.</small>
+              <div
+                *ngIf="loginForm.get('email')?.touched && (loginForm.get('email')?.errors?.['required'] || loginForm.get('email')?.errors?.['email'])"
+                [ngClass]="{'d-block': loginForm.get('email')?.touched && (loginForm.get('email')?.errors?.['required'] || loginForm.get('email')?.errors?.['email'])}"
+                class="invalid-feedback">
+                Por favor, insira um endereço de e-mail válido.
+              </div>
             </div>
             <div class='form-group mb-3'>
-              <label class='form-label' for='password-input'>Senha</label>
-              <input aria-describedby='password-description' class='form-control' id='password-input' name='password'
-                     pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$' required type='password'>
-              <small class='form-text text-muted' id='password-description'>Digite sua senha.</small>
+              <label class='form-label' for='password'>Senha</label>
+              <input
+                [ngClass]="{'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.invalid}"
+                aria-describedby='password-description'
+                class='form-control'
+                formControlName='password'
+                id='password'
+                type='password'>
+              <small class='form-text text-muted' id='password-description'>
+                Digite a senha associada a sua conta.
+              </small>
+              <div
+                *ngIf="loginForm.get('password')?.touched && (loginForm.get('password')?.errors?.['required'] || loginForm.get('password')?.errors?.['pattern'])"
+                [ngClass]="{'d-block': loginForm.get('password')?.touched && (loginForm.get('password')?.errors?.['required'] || loginForm.get('password')?.errors?.['pattern'])}"
+                class="invalid-feedback">
+                O campo de senha é obrigatório.
+              </div>
             </div>
             <div class='form-check mb-3'>
               <input class='form-check-input' id='remember-me-input' name='remember-me' type='checkbox'>
