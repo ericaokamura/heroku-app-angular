@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { User } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,14 @@ export class LoginComponent {
     this.createForm();
   }
 
-  onSubmit(): void {}
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      const email: string = this.loginForm.controls?.['email'].value;
+      this.userService.getUserByEmail(email).subscribe((user: User) => {
+        alert(`User ${user.fullName} logged in successfully`);
+      });
+    }
+  }
 
   private createForm(): void {
     this.loginForm = this.formBuilder.group({
