@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     const user: User = {
+      id: 0,
       fullName: this.registrationForm.value.fullName,
       login: this.registrationForm.value.email,
       password: this.registrationForm.value.password,
