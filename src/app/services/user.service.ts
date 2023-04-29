@@ -20,43 +20,43 @@ export class UserService {
 
   public getUserById(id: number): Observable<User> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<User>(url, this.httpOptions).pipe(
-      retry(3), // Tentativas máximas de 3
-      catchError(this.handleError) // Trata erros
-    );
+    return this.handleRequest(this.http.get<User>(url));
   }
 
   public getUserByEmail(email: string): Observable<User> {
     const url = `${this.apiUrl}/email/${email}`;
-    return this.http.get<User>(url, this.httpOptions).pipe(retry(3), catchError(this.handleError));
+    return this.handleRequest(this.http.get<User>(url));
   }
 
   public postUser(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, user, this.httpOptions).pipe(retry(3), catchError(this.handleError));
+    return this.handleRequest(this.http.post<User>(this.apiUrl, user));
   }
 
   public updateUser(user: User): Observable<User> {
     const url = `${this.apiUrl}/${user.id}`;
-    return this.http.put<User>(url, user, this.httpOptions).pipe(retry(3), catchError(this.handleError));
+    return this.handleRequest(this.http.put<User>(url, user));
   }
 
   public deleteUser(id: number): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.delete(url, this.httpOptions).pipe(retry(3), catchError(this.handleError));
+    return this.handleRequest(this.http.delete(url));
   }
 
   public getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl, this.httpOptions).pipe(retry(3), catchError(this.handleError));
+    return this.handleRequest(this.http.get<User[]>(this.apiUrl));
   }
 
   public createUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}`, user, this.httpOptions).pipe(retry(3), catchError(this.handleError));
+    return this.handleRequest(this.http.post<User>(this.apiUrl, user));
   }
 
   public updateUserById(id: number, user: User): Observable<User> {
-    return this.http
-      .put<User>(`${this.apiUrl}/${id}`, user, this.httpOptions)
-      .pipe(retry(3), catchError(this.handleError));
+    const url = `${this.apiUrl}/${id}`;
+    return this.handleRequest(this.http.put<User>(url, user));
+  }
+
+  private handleRequest<T>(request: Observable<T>): Observable<T> {
+    return request.pipe(retry(3), catchError(this.handleError));
   }
 
   private handleError(error: any) {
