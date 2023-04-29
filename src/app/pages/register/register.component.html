@@ -55,8 +55,8 @@
                 id='password'
                 type='password'>
               <small class='form-text text-muted' id='password-description'>
-                A senha precisa ter pelo menos 8 caracteres e incluir pelo menos uma letra minúscula, uma letra
-                maiúscula e um número.
+                A senha precisa ter no mínimo 8 caracteres e deve conter pelo menos uma letra minúscula, uma
+                letra maiúscula, um número e um caractere especial. Por exemplo: Senha@123.
               </small>
               <div
                 *ngIf="registrationForm.get('password')?.touched && (registrationForm.get('password')?.errors?.['required'] || registrationForm.get('password')?.errors?.['pattern'])"
