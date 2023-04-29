@@ -45,7 +45,7 @@ export class LoginComponent {
       .getUserByEmail(email)
       .pipe(
         tap((user: User) => {
-          if (user && user.password === this.loginForm.get('password')!.value) {
+          if (user && user.senha === this.loginForm.get('password')!.value) {
             this.user = user;
           } else {
             throw new Error('Invalid email or password');
@@ -57,7 +57,7 @@ export class LoginComponent {
         })
       )
       .subscribe(() => {
-        alert(`User ${this.user.fullName} logged in successfully`);
+        alert(`User ${this.user.nomeCompleto} logged in successfully`);
         this.router.navigate(['/']).then(() => {
           this.loginForm.reset();
         });

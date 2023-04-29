@@ -27,9 +27,9 @@ export class RegisterComponent implements OnInit {
     }
     const user: User = {
       id: 0,
-      fullName: this.registrationForm.value.fullName,
+      nomeCompleto: this.registrationForm.value.fullName,
       login: this.registrationForm.value.email,
-      password: this.registrationForm.value.password,
+      senha: this.registrationForm.value.password,
       email: this.registrationForm.value.email,
     };
     this.userService
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe((newUser: User | null) => {
         if (newUser) {
-          alert(`User ${newUser.fullName} registered successfully`);
+          alert(`User ${newUser.nomeCompleto} registered successfully`);
           this.router.navigate(['/login']).then(r => console.log(r));
         }
       });
