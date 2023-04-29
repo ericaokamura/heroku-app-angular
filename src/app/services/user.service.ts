@@ -30,7 +30,8 @@ export class UserService {
   }
 
   public postUser(user: User): Observable<User> {
-    return this.handleRequest(this.http.post<User>(this.apiUrl, user, this.httpOptions));
+    const url = `${this.apiUrl}/`;
+    return this.handleRequest(this.http.post<User>(url, user, this.httpOptions));
   }
 
   public updateUser(user: User): Observable<User> {
