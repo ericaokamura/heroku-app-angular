@@ -21,39 +21,39 @@ export class UserService {
 
   public getUserById(id: number): Observable<User> {
     const url = `${this.apiUrl}/${id}`;
-    return this.handleRequest(this.http.get<User>(url));
+    return this.handleRequest(this.http.get<User>(url, this.httpOptions));
   }
 
   public getUserByEmail(email: string): Observable<User> {
     const url = `${this.apiUrl}/email/${email}`;
-    return this.handleRequest(this.http.get<User>(url));
+    return this.handleRequest(this.http.get<User>(url, this.httpOptions));
   }
 
   public postUser(user: User): Observable<User> {
-    return this.handleRequest(this.http.post<User>(this.apiUrl, user));
+    return this.handleRequest(this.http.post<User>(this.apiUrl, user, this.httpOptions));
   }
 
   public updateUser(user: User): Observable<User> {
     const url = `${this.apiUrl}/${user.id}`;
-    return this.handleRequest(this.http.put<User>(url, user));
+    return this.handleRequest(this.http.put<User>(url, user, this.httpOptions));
   }
 
   public deleteUser(id: number): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
-    return this.handleRequest(this.http.delete(url));
+    return this.handleRequest(this.http.delete(url, this.httpOptions));
   }
 
   public getAllUsers(): Observable<User[]> {
-    return this.handleRequest(this.http.get<User[]>(this.apiUrl));
+    return this.handleRequest(this.http.get<User[]>(this.apiUrl, this.httpOptions));
   }
 
   public createUser(user: User): Observable<User> {
-    return this.handleRequest(this.http.post<User>(this.apiUrl, user));
+    return this.handleRequest(this.http.post<User>(this.apiUrl, user, this.httpOptions));
   }
 
   public updateUserById(id: number, user: User): Observable<User> {
     const url = `${this.apiUrl}/${id}`;
-    return this.handleRequest(this.http.put<User>(url, user));
+    return this.handleRequest(this.http.put<User>(url, user, this.httpOptions));
   }
 
   private handleRequest<T>(request: Observable<T>): Observable<T> {
@@ -70,6 +70,6 @@ export class UserService {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     console.error(errorMessage);
-    return throwError(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }
