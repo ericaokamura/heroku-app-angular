@@ -1,5 +1,6 @@
 {
   "name": "heroku-app-angular",
+  "author": "https://github.com/luizgolima",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
